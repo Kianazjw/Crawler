@@ -8,16 +8,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- *
- *
- * @author weiyu
- *
- *  功能：从网络获取数据 返回String类型
- *
- */
 
 public class JsonParse {
+
     private StringBuffer sb;
 
     public String getString(String url) {
@@ -29,15 +22,16 @@ public class JsonParse {
                 connection.setReadTimeout(5000);// 等待时间
                 connection.setRequestMethod("GET");// GET方式请求数据
 
+                // 在java中,可以使用InputStream对文件进行读取,就是字节流的输入
+                InputStream inputStream = connection.getInputStream();
+                // InputStreamReader 将字节流转换为字符流是字节流通向字符流的桥梁
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                // BufferedReader包装字符流，将字符流放入缓存里
+                BufferedReader reader = new BufferedReader(inputStreamReader);
+
+//                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
                 sb = new StringBuffer();
-
-                InputStream inputStream = connection.getInputStream();// 在java中,可以使用InputStream对文件进行读取,就是字节流的输入
-
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);// InputStreamReader 将字节流转换为字符流是字节流通向字符流的桥梁
-
-                BufferedReader reader = new BufferedReader(inputStreamReader);// BufferedReader包装字符流，将字符流放入缓存里
-                // BufferedReader reader=new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
                 String str;
 
                 while ((str = reader.readLine()) != null) {

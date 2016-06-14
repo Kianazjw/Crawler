@@ -1,18 +1,17 @@
 package com.example.kiana.crawler;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- *
  * 列表适配器
- *
  */
 
 public class JsonParseAdapter extends BaseAdapter {
@@ -23,13 +22,18 @@ public class JsonParseAdapter extends BaseAdapter {
 
     public JsonParseAdapter(Context context) {
         this.context = context;
+//                                                                      取得xml里定义的view
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        LayoutInflater这个类的作用类似于findViewById()。
+//        不同点是LayoutInflater是用来找res/layout/下的xml布局文件，并且实例化
+//        而findViewById()是找xml布局文件下的具体widget控件(如Button、TextView等)。
 
+//        学习 http://blog.csdn.net/guolin_blog/article/details/12921889
     }
 
     public void getData(List<Person> persons) {
         this.persons = persons;
-        this.notifyDataSetChanged();//加载后要更新列表用的  不然会异常
+        this.notifyDataSetChanged(); //更新UI
     }
 
     @Override
@@ -47,11 +51,10 @@ public class JsonParseAdapter extends BaseAdapter {
         return position;
     }
 
-    private TextView student_name;//姓名
-    private TextView student_id;//学号
-    private TextView status;//状态
-    private TextView class_name;//班级名称
-
+    private TextView student_name;
+    private TextView student_id;
+    private TextView status;
+    private TextView class_name;
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
@@ -66,7 +69,7 @@ public class JsonParseAdapter extends BaseAdapter {
         student_name.setText("姓名： " + persons.get(position).getStudent_name());
         student_id.setText("学号： " + persons.get(position).getStudent_id());
         status.setText("状态： " + persons.get(position).getStatus());
-        class_name.setText("班级： " + persons.get(position).getClass_name());
+        class_name.setText("专业： " + persons.get(position).getClass_name());
 
         return view;
     }
